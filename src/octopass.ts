@@ -16,6 +16,9 @@ export default class Octopass {
     }
 
     async login(username: string, password: string) {
+        if (username === undefined || password === undefined) {
+            throw new Error('You need to specify username and password')
+        }
         try {
             let result =  await axios.post(this.apiurl + 'auth', {
                 username: username,

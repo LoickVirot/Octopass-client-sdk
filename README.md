@@ -16,3 +16,7 @@ Unit tests are managed with Mocha.
 ```bash
 npm install -g mocha
 ```
+Run tests :
+```bash
+mocha
+```
