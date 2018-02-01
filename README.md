@@ -20,3 +20,7 @@ Run tests :
 ```bash
 mocha
 ```
+
+## Troubleshooting
+### Test failed: Timeout
+Check if webservice is working and good configured (example : database)

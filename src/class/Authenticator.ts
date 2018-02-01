@@ -1,12 +1,15 @@
 import axios from 'axios'
-import config from './config'
+import config from '../config'
+import StateManager from './StateManager'
 
 export default class Authenticator {
 
     private accessToken: string
+    private userToken: string
 
-    constructor(accessToken: string) {
-        this.accessToken = accessToken
+    constructor() {
+        this.accessToken = StateManager.getInstance().get("clientToken");
+        this.userToken = StateManager.getInstance().get("userToken");
     }
 
     /**
@@ -14,11 +17,11 @@ export default class Authenticator {
      * @param username 
      * @param password 
      */
-    async login(username: string, password: string, apiurl: string) {
+    async login(username: string, password: string) {
         if (username === undefined || password === undefined) {
             throw new Error('You need to specify username and password')
         }
-        try {
+        try {            
             let result = await axios.post(config.apiurl + 'auth', {
                 username: username,
                 password: password
