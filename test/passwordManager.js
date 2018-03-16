@@ -25,7 +25,6 @@ describe('Test password manager function', () => {
         assert.isNotEmpty(passwordObj.id)
         assert.isNotEmpty(passwordObj.serviceName)
         assert.isNotEmpty(passwordObj.password)
-        return null;
     })
 
     it ('Should return decoded password', async  () => {
