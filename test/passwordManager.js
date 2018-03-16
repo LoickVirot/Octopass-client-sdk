@@ -12,4 +12,9 @@ describe('Test password manager function', () => {
         let ret = await octopass.getPasswordManager().createPassword("Test", "TestService")
         assert.typeOf(ret, 'string')
     })
+
+    it('Should return all user\'s password', async () => {
+        let ret = await octopass.getPasswordManager().listUserPasswords()
+        assert.isTrue(ret.length > 0);
+    })
 })

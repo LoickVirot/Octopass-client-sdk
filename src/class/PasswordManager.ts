@@ -33,7 +33,22 @@ export default class PasswordManager {
             return result.data
         } catch(err) {
             throw err
-        }
-            
+        }  
+    }
+
+    /**
+     * Return an array of all user's passwords
+     */
+    async listUserPasswords() {
+        try {
+            let result = await axios.get(config.apiurl + 'user/passwords', {
+                headers: {
+                    "Authorization": StateManager.getInstance().get("userToken")
+                }
+            })
+            return result.data;
+        } catch (err) {
+            throw err;
+        } 
     }
 }
