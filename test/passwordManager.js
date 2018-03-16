@@ -28,9 +28,23 @@ describe('Test password manager function', () => {
         return null;
     })
 
-    // it ('Should return decoded password', async  () => {
-    //     let password = await.getPasswordManager.decodePassword("Test", )
-    // })
+    it ('Should return decoded password', async  () => {
+        let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54")
+        let decodedPassword = await octopass.getPasswordManager().decodePassword("Test", password)
+        console.log(decodedPassword)
+        assert.equal(decodedPassword, "FO2!oXv20dM~<+0y")
+    })
+
+    it('Should return an error', async () => {
+        let passwordList = await octopass.getPasswordManager().listUserPasswords()
+        let isError = false
+        try {
+            let decodedPassword = await octopass.getPasswordManager().decodePassword("Test", passwordList[0])
+        } catch (err) {
+            isError = true
+        }
+        assert.isTrue(isError)
+    })
 
 })
 

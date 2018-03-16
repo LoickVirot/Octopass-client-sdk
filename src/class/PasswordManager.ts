@@ -1,6 +1,6 @@
 import axios from 'axios'
 import randomString = require('random-string')
-import { AES } from 'crypto-js'
+import * as CryptoJS from 'crypto-js'
 
 import config from '../config'
 import StateManager from './StateManager'
@@ -20,7 +20,7 @@ export default class PasswordManager {
             special: true
         })
         // Encrypt it
-        let encryptedPass = AES.encrypt(pass, masterpass)
+        let encryptedPass = CryptoJS.AES.encrypt(pass, masterpass)
         // Send to the server
         try {
             let result = await axios.post(config.apiurl + 'password', {
@@ -82,9 +82,12 @@ export default class PasswordManager {
     }
 
     async decodePassword(masterPass: string, password: Password) {
-        return null;
         if (password.password === undefined) {
             throw new Error("Password in password object is empty")
         }
+        // Encrypt it
+        let decodedPassBytes = CryptoJS.AES.decrypt(password.password.toString(), masterPass)
+        console.log('decodedPassBytes : ' + decodedPassBytes)
+        return decodedPassBytes.toString(CryptoJS.enc.Utf8);
     }
 }
