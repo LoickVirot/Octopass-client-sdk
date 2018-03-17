@@ -87,7 +87,6 @@ export default class PasswordManager {
         }
         // Encrypt it
         let decodedPassBytes = CryptoJS.AES.decrypt(password.password.toString(), masterPass)
-        console.log('decodedPassBytes : ' + decodedPassBytes)
         return decodedPassBytes.toString(CryptoJS.enc.Utf8);
     }
 }

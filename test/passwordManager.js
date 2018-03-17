@@ -30,7 +30,6 @@ describe('Test password manager function', () => {
     it ('Should return decoded password', async  () => {
         let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54")
         let decodedPassword = await octopass.getPasswordManager().decodePassword("Test", password)
-        console.log(decodedPassword)
         assert.equal(decodedPassword, "FO2!oXv20dM~<+0y")
     })
 
