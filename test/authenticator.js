@@ -1,9 +1,11 @@
 const assert = require('chai').assert
 const Octopass = require('../dist/octopass')
+const mockup = require('./mockups/authenticatorMockup')
 
 octopass = new Octopass.default("1234567")
 
 describe('Test authentication function', () => {
+
     it('should return accessToken', async () => {        
         let ret = await octopass.getAuthenticator().login("Jdoe", "Test")
         assert.typeOf(ret, 'object')

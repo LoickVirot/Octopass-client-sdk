@@ -1,5 +1,6 @@
 const assert = require('chai').assert
 const Octopass = require('../dist/octopass')
+const mockup = require('./mockups/passwordManagerMockup')
 
 let octopass = new Octopass.default("1234567")
 
@@ -19,8 +20,7 @@ describe('Test password manager function', () => {
     })
 
     it('should return a password object with password string', async () => {
-        let userPasswordList = await octopass.getPasswordManager().listUserPasswords()
-        let passwordObj = await octopass.getPasswordManager().getPassword(userPasswordList[0].id)
+        let passwordObj = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54")
         assert.isNotNull(passwordObj)
         assert.isNotEmpty(passwordObj.id)
         assert.isNotEmpty(passwordObj.serviceName)
@@ -30,7 +30,7 @@ describe('Test password manager function', () => {
     it ('Should return decoded password', async  () => {
         let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54")
         let decodedPassword = await octopass.getPasswordManager().decodePassword("Test", password)
-        assert.equal(decodedPassword, "FO2!oXv20dM~<+0y")
+        assert.equal(decodedPassword, "3e2T$M75ARu&/]oG")
     })
 
     it('Should return an error', async () => {
