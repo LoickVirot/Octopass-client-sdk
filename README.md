@@ -1,4 +1,4 @@
-# Octopass Client SDK
+# Octopass Client SDK [![Build Status](https://travis-ci.org/LoickVirot/Octopass-client-sdk.svg?branch=master)](https://travis-ci.org/LoickVirot/Octopass-client-sdk)
 
 ## Compile
 This SDK uses TypeScript. To get JS file, you need to compile the src folder.
