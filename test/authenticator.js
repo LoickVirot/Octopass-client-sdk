@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 const Octopass = require('../dist/octopass')
 const mockup = require('./mockups/authenticatorMockup')
+const StateManager = require('../dist/class/StateManager')
 
 octopass = new Octopass.default("1234567")
 
@@ -11,6 +12,7 @@ describe('Test authentication function', () => {
         assert.typeOf(ret, 'object')
         assert.notStrictEqual(ret.token, undefined)
         assert.equal(ret.message, "User connected")
+        assert.equal(StateManager.default.getInstance().get('userToken'), 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhNmE0YjEyYzM5Y2M1MDA0NmZiNTdhYiIsInVzZXJuYW1lIjoiSmRvZSIsImlhdCI6MTUyMTI5NTc1Nn0.IBF-NRyqRw0lnW2zA2BE4Vzhll6fHknvGziz0mhtSe0')
     })
 
     it ('should not return accessToken', async () => {

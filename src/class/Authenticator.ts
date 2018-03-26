@@ -26,8 +26,9 @@ export default class Authenticator {
                 username: username,
                 password: password
             })
-            return result.data
-        } catch (err) {
+            StateManager.getInstance().updateState('userToken', result.data.token)
+            return result.data 
+        } catch (err) { 
             if (err.response.status == 401) {
                 let error: any = new Error(err.response.data)
                 error.code = 401
