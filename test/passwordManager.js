@@ -1,12 +1,17 @@
 const assert = require('chai').assert
 const Octopass = require('../dist/octopass')
 const mockup = require('./mockups/passwordManagerMockup')
+const StateManager = require('../dist/class/StateManager')
 
 let octopass = new Octopass.default("1234567")
 
 describe('Test password manager function', () => {
     beforeEach(async () => {
         await octopass.login("Jdoe", "Test")
+    })
+
+    afterEach(async () => {
+        assert.isNotEmpty(StateManager.default.getInstance().get('userToken'))
     })
 
     it('should create password', async () => {

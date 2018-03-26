@@ -40,7 +40,6 @@ export default class Authenticator {
     }
 
     isLoggedIn() {
-        console.log(StateManager.getInstance().get('userToken'))
         return StateManager.getInstance().get('userToken') !== "";
     }
 }
