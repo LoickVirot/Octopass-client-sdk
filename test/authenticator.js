@@ -20,6 +20,7 @@ describe('Test authentication function', () => {
             let ret = await octopass.getAuthenticator().login("azertyu", "nope")
         } catch(err) {
             assert.equal(err.code, 401)
+            assert.isEmpty(StateManager.default.getInstance().get('userToken'))
         }
     })
 
@@ -29,5 +30,17 @@ describe('Test authentication function', () => {
         } catch (err) {
             assert.equal(err.message, "You need to specify username and password")
         }
+    })
+
+    it ('should return user is logged in', async () => {
+        await octopass.getAuthenticator().login("Jdoe", "Test")
+        assert.isTrue(octopass.getAuthenticator().isLoggedIn())
+    })
+
+    it('should return user is not logged in', async () => {
+        try {
+            await octopass.getAuthenticator().login("azertyu", "nope")        
+        } catch (err) {}
+        assert.isFalse(octopass.getAuthenticator().isLoggedIn())
     })
 })

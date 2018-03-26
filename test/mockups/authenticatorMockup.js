@@ -13,4 +13,5 @@ module.exports = nock('http://localhost:8080')
         username: "azertyu",
         password: "nope"
     })
-    .reply(200, "Incorrect password")
+    .reply(401, "Incorrect password")
+    .persist()

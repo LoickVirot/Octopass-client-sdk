@@ -29,6 +29,7 @@ export default class Authenticator {
             StateManager.getInstance().updateState('userToken', result.data.token)
             return result.data 
         } catch (err) { 
+            StateManager.getInstance().updateState('userToken', '')
             if (err.response.status == 401) {
                 let error: any = new Error(err.response.data)
                 error.code = 401
@@ -36,5 +37,10 @@ export default class Authenticator {
             }
             throw err
         }
+    }
+
+    isLoggedIn() {
+        console.log(StateManager.getInstance().get('userToken'))
+        return StateManager.getInstance().get('userToken') !== "";
     }
 }
