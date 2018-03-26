@@ -21,7 +21,7 @@ describe('Test password manager function', () => {
 
     it('Should return all user\'s password', async () => {
         let ret = await octopass.getPasswordManager().listUserPasswords()
-        assert.isTrue(ret.length > 0);
+        assert.equal(ret.length, 3);
     })
 
     it('should return a password object with password string', async () => {
