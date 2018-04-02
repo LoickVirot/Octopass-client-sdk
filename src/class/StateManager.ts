@@ -8,7 +8,6 @@ class StateManager {
     private constructor() {
         this.state = {
             clientToken: "",
-            userToken: ""
         }
     }
 

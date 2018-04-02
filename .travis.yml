@@ -12,4 +12,4 @@ before_script:
   - tsc
 
 script:
-  - mocha
+  - npm test
