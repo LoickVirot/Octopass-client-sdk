@@ -34,7 +34,7 @@ export default class PasswordManager {
             return result.data
         } catch(err) {
             throw err
-        }  
+        }
     }
 
     /**

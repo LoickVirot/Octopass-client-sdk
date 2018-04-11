@@ -18,7 +18,7 @@ describe('Test authentication function', () => {
         try {
             let ret = await octopass.getAuthenticator().login("azertyu", "nope")
         } catch(err) {
-            assert.equal(err.code, 401)
+            assert.equal(err.response.status, 401)
         }
     })
 

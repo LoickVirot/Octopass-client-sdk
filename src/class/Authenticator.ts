@@ -30,10 +30,12 @@ export default class Authenticator {
             return result.data
         } catch (err) { 
             localStorage.removeItem('userToken')
-            if (err.response.status == 401) {
-                let error: any = new Error(err.response.data)
-                error.code = 401
-                throw error;
+            if (err.response === undefined) {
+                if (err.status == 401) {
+                    let error: any = new Error(err.response.data)
+                    error.code = 401
+                    return error
+                }
             }
             throw err
         }
