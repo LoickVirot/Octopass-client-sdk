@@ -63,15 +63,46 @@ module.exports = nock('http://localhost:8080')
     
     .get('/5a6c6ae0afd4300018e46862/password') // Other user
     .reply('401', 'You are not allowed to access to this route.')
+
+    .put('/5a6c6ae0afd4300018e46862/password') // Other user
+    .reply('401', 'You are not allowed to access to this route.')
+
+    .delete('/5a6c6ae0afd4300018e46862/password') // Other user
+    .reply('401', 'You are not allowed to access to this route.')
     
-    .delete('/5a6c6ae0afd4300018e46862/password')
+    .delete('/5aab906a9939740012161e54/password')
     .reply('200')
 
-    .put('/5a6c6ae0afd4300018e46862/password')
+    .put('/5aab906a9939740012161e54/password', {
+        "serviceName": "TestUpdate"
+    })
     .reply('201', {
-        "_id": "5a6c6ae0afd4300018e46862",
+        "_id": "5aab906a9939740012161e54",
         "serviceName": "TestUpdate",
         "password": "Test",
+        "owner": "5a6a4b12c39cc50046fb57ab",
+        "__v": 0
+    })
+
+    .put('/5aab906a9939740012161e54/password', {
+        "password": "TestUpdate"
+    })
+    .reply('201', {
+        "_id": "5aab906a9939740012161e54",
+        "serviceName": "Test",
+        "password": "TestUpdate",
+        "owner": "5a6a4b12c39cc50046fb57ab",
+        "__v": 0
+    })
+    
+    .put('/5aab906a9939740012161e54/password', {
+        "serviceName": "TestUpdate",        
+        "password": "TestUpdate"
+    })
+    .reply('201', {
+        "_id": "5aab906a9939740012161e54",
+        "serviceName": "TestUpdate",
+        "password": "TestUpdate",
         "owner": "5a6a4b12c39cc50046fb57ab",
         "__v": 0
     })

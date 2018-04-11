@@ -48,19 +48,78 @@ describe('Test password manager function', () => {
         assert.isTrue(isError)
     })
 
+    it ('should update a password serviceName', async () => {
+        let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
+        password.serviceName = "TestUpdate"
+        await octopass.getPasswordManager().updatePassword(password)
+        
+        password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
+        assert.equal(password.serviceName, 'TestUpdate')
+        assert.equal(password.password, 'Test')
+    })
+
+    it('should update a password password', async () => {
+        let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
+        password.password = "TestUpdate"
+        await octopass.getPasswordManager().updatePassword(password)
+
+        password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
+        assert.equal(password.serviceName, 'Test')
+        assert.equal(password.password, 'TestUpdate')
+    })
+
+    it('should update a password serviceName and password', async () => {
+        let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
+        password.serviceName = "TestUpdate"        
+        password.password = "TestUpdate"
+        await octopass.getPasswordManager().updatePassword(password)
+
+        password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
+        assert.equal(password.serviceName, 'TestUpdate')
+        assert.equal(password.password, 'TestUpdate')
+    })
+
 })
 
 describe('Test password manager function with not access', () => {
 
+    let octopass
+
+    beforeEach(async () => {
+        octopass = new Octopass.default("1234567")
+        await octopass.login("Test", "Test")
+    })
+
     it('should throw an error', async () => {
         // Try to access to a password owned by someone else
-        let octopass = new Octopass.default("1234567")
-        await octopass.login("Test", "Test")
-        let otherUserPassList = await octopass.getPasswordManager().listUserPasswords()
         let isError = false
         try {
             let ret = await octopass.getPasswordManager().getPassword("5a6c6ae0afd4300018e46862")
         } catch (err) {
+            assert.equal(err.response.status, '401')
+            isError = true
+        }
+        assert.isTrue(isError)
+    })
+
+    it('should throw an error update pass', async () => {
+        let isError = false
+        try {
+            let ret = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54")
+            await octopass.getPasswordManager().updatePassword(ret)
+        } catch (err) {
+            assert.equal(err.response.status, '401')            
+            isError = true
+        }
+        assert.isTrue(isError)
+    })
+
+    it('should throw an error delete pass', async () => {
+        let isError = false
+        try {
+            let ret = await octopass.getPasswordManager().deletePassword("5a6c6ae0afd4300018e46862")
+        } catch (err) {
+            assert.equal(err.response.status, '401')
             isError = true
         }
         assert.isTrue(isError)
