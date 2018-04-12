@@ -48,7 +48,7 @@ module.exports = nock('http://localhost:8080')
     
     .get('/5aab906a9939740012161e54/password') // Existing
     .reply('200', {
-        "_id": "5a737d64972308002430fd0f",
+        "_id": "5aab906a9939740012161e54",
         "serviceName": "TestService",
         "password": "U2FsdGVkX19BI6NVmtbH7zf/waHnzUbiHZUl5kr9NHCJmflu0FoVndSzocR1Fg2D",
         "owner": {
@@ -85,12 +85,23 @@ module.exports = nock('http://localhost:8080')
     })
 
     .put('/5aab906a9939740012161e54/password', {
+        "serviceName": "TestService"
+    })
+    .reply('201', {
+        "_id": "5aab906a9939740012161e54",
+        "serviceName": "TestService",
+        "password": "Test",
+        "owner": "5a6a4b12c39cc50046fb57ab",
+        "__v": 0
+    })
+
+    .put('/5aab906a9939740012161e54/password', {
         "password": "TestUpdate"
     })
     .reply('201', {
         "_id": "5aab906a9939740012161e54",
         "serviceName": "Test",
-        "password": "TestUpdate",
+        "password": "Test",
         "owner": "5a6a4b12c39cc50046fb57ab",
         "__v": 0
     })
@@ -102,7 +113,7 @@ module.exports = nock('http://localhost:8080')
     .reply('201', {
         "_id": "5aab906a9939740012161e54",
         "serviceName": "TestUpdate",
-        "password": "TestUpdate",
+        "password": "Test",
         "owner": "5a6a4b12c39cc50046fb57ab",
         "__v": 0
     })

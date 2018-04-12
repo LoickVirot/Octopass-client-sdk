@@ -89,4 +89,34 @@ export default class PasswordManager {
         let decodedPassBytes = CryptoJS.AES.decrypt(password.password.toString(), masterPass)
         return decodedPassBytes.toString(CryptoJS.enc.Utf8);
     }
+
+    async updatePassword(password: Password) {
+        try {
+            let res = await axios.put(config.apiurl + password.id + '/password', {
+                serviceName: password.serviceName
+            })
+            return res;
+        } catch (err) {
+            if (err.status == 401) {
+                let error: any = new Error(err.response.data)
+                error.code = 401
+                return error
+            }
+            throw err
+        }
+    }
+
+    async deletePassword(id: String) {
+        try {
+            let res = await axios.delete(config.apiurl + id + '/password')
+            return res;
+        } catch (err) {
+            if (err.status == 401) {
+                let error: any = new Error(err.response.data)
+                error.code = 401
+                return error
+            }
+            throw err
+        }
+    }
 }

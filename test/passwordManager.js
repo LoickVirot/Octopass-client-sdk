@@ -51,32 +51,29 @@ describe('Test password manager function', () => {
     it ('should update a password serviceName', async () => {
         let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
         password.serviceName = "TestUpdate"
-        await octopass.getPasswordManager().updatePassword(password)
+        let res = await octopass.getPasswordManager().updatePassword(password)
         
-        password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
-        assert.equal(password.serviceName, 'TestUpdate')
-        assert.equal(password.password, 'Test')
+        assert.equal(res.data.serviceName, 'TestUpdate')
+        assert.equal(res.data.password, 'Test')
     })
 
-    it('should update a password password', async () => {
+    it('should not update a password password', async () => {
         let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
         password.password = "TestUpdate"
-        await octopass.getPasswordManager().updatePassword(password)
+        let res = await octopass.getPasswordManager().updatePassword(password)
 
-        password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
-        assert.equal(password.serviceName, 'Test')
-        assert.equal(password.password, 'TestUpdate')
+        assert.equal(res.data.serviceName, password.serviceName)
+        assert.equal(res.data.password, 'Test')
     })
 
-    it('should update a password serviceName and password', async () => {
+    it('should update a password serviceName and not password', async () => {
         let password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
         password.serviceName = "TestUpdate"        
         password.password = "TestUpdate"
-        await octopass.getPasswordManager().updatePassword(password)
+        let res = await octopass.getPasswordManager().updatePassword(password)
 
-        password = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54");
-        assert.equal(password.serviceName, 'TestUpdate')
-        assert.equal(password.password, 'TestUpdate')
+        assert.equal(res.data.serviceName, 'TestUpdate')
+        assert.equal(res.data.password, 'Test')
     })
 
     it('should delete a password', async () => {
@@ -102,18 +99,6 @@ describe('Test password manager function with not access', () => {
             let ret = await octopass.getPasswordManager().getPassword("5a6c6ae0afd4300018e46862")
         } catch (err) {
             assert.equal(err.response.status, '401')
-            isError = true
-        }
-        assert.isTrue(isError)
-    })
-
-    it('should throw an error update pass', async () => {
-        let isError = false
-        try {
-            let ret = await octopass.getPasswordManager().getPassword("5aab906a9939740012161e54")
-            await octopass.getPasswordManager().updatePassword(ret)
-        } catch (err) {
-            assert.equal(err.response.status, '401')            
             isError = true
         }
         assert.isTrue(isError)
