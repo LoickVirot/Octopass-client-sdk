@@ -79,6 +79,11 @@ describe('Test password manager function', () => {
         assert.equal(password.password, 'TestUpdate')
     })
 
+    it('should delete a password', async () => {
+        let ret = await octopass.getPasswordManager().deletePassword("5aab906a9939740012161e54")
+        assert.equal(ret.status, 200)
+    })
+
 })
 
 describe('Test password manager function with not access', () => {
