@@ -1,6 +1,6 @@
 {
   "name": "octopass-client-sdk",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Client SDK to manage password encryption and decryption",
   "main": "index.js",
   "scripts": {
