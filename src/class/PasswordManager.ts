@@ -28,7 +28,7 @@ export default class PasswordManager {
                 "password": encryptedPass.toString()
             }, {
                 headers: {
-                    "Authorization": StateManager.getInstance().get("userToken")
+                    "Authorization": localStorage.getItem('userToken')
                 }
             })
             return result.data
@@ -44,7 +44,7 @@ export default class PasswordManager {
         try {
             let result = await axios.get(config.apiurl + 'user/passwords', {
                 headers: {
-                    "Authorization": StateManager.getInstance().get("userToken")
+                    "Authorization": localStorage.getItem('userToken')
                 }
             })
             return await result.data.map((passwordDbElem: any) => {
@@ -67,7 +67,7 @@ export default class PasswordManager {
         try {
             let password = await axios.get(config.apiurl + id + '/password', {
                 headers: {
-                    "Authorization": StateManager.getInstance().get("userToken")
+                    "Authorization": localStorage.getItem('userToken')
                 }
             })
             let passwordObj: Password = {
@@ -94,6 +94,10 @@ export default class PasswordManager {
         try {
             let res = await axios.put(config.apiurl + password.id + '/password', {
                 serviceName: password.serviceName
+            }, {
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                }
             })
             return res;
         } catch (err) {
@@ -108,7 +112,11 @@ export default class PasswordManager {
 
     async deletePassword(id: String) {
         try {
-            let res = await axios.delete(config.apiurl + id + '/password')
+            let res = await axios.delete(config.apiurl + id + '/password', {
+                headers: {
+                    Authorization: localStorage.getItem('userToken')
+                }
+            })
             return res;
         } catch (err) {
             if (err.status == 401) {

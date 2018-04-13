@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 const Octopass = require('../dist/octopass')
 const mockup = require('./mockups/passwordManagerMockup')
+const mockup2 = require('./mockups/authenticatorMockup')
 
 let octopass = new Octopass.default("1234567")
 
